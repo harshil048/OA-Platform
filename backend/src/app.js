@@ -17,8 +17,10 @@ app.use(express.urlencoded({ extended: true, limit: '50mb' }));
 
 //routes
 import userRoutes from './routes/user.route.js';
+import questionRoutes from './routes/question.route.js';
 
 //routes declaration
 app.use('/api/auth', userRoutes);
+app.use('/api/questions', questionRoutes);
 
 export default app;

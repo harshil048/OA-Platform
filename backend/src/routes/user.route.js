@@ -1,6 +1,6 @@
 import express from 'express';
 import { verifyJWT } from '../middlewares/auth.middleware.js';
-import { register, login, refresh, logout } from '../controllers/user.controler.js';
+import { register, login, refresh, logout } from '../controllers/user.controller.js';
 
 const router = express.Router();
 
