@@ -2,6 +2,7 @@
 import mongoose from 'mongoose';
 
 const DatabaseQuestionSchema = new mongoose.Schema({
+  title: { type: String, required: true },
   schema: { type: String, required: true },
   problemStatement: { type: String, required: true },
   sampleInput: { type: String, required: true },

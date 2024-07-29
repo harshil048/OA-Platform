@@ -2,6 +2,7 @@
 import mongoose from 'mongoose';
 
 const CodingQuestionSchema = new mongoose.Schema({
+  title: { type: String, required: true },
   problemStatement: { type: String, required: true },
   sampleInput: { type: String, required: true },
   sampleOutput: { type: String, required: true },

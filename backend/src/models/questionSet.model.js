@@ -7,6 +7,8 @@ const QuestionSetSchema = new mongoose.Schema({
   codingQuestions: [{ type: mongoose.Schema.Types.ObjectId, ref: 'CodingQuestion' }],
   databaseQuestions: [{ type: mongoose.Schema.Types.ObjectId, ref: 'DatabaseQuestion' }],
   aptitudeQuestions: [{ type: mongoose.Schema.Types.ObjectId, ref: 'AptitudeQuestion' }],
+  duration: { type: Number, required: true },
+  totalMarks: { type: Number, required: true },
 });
 
 export const QuestionSet = mongoose.model('QuestionSet', QuestionSetSchema);

@@ -8,7 +8,7 @@ import { asyncHandler } from '../utils/asyncHandler.js';
 import { ApiResponse } from '../utils/ApiResponse.js';
 
 export const createQuestionSet = asyncHandler(async (req, res, next) => {
-  const { title, codingQuestions, databaseQuestions, aptitudeQuestions } = req.body;
+  const { title, codingQuestions, databaseQuestions, aptitudeQuestions, duration, totalMarks } = req.body;
   const createdBy = req.user._id;
 
   const questionSet = new QuestionSet({ title, createdBy });
@@ -24,6 +24,12 @@ export const createQuestionSet = asyncHandler(async (req, res, next) => {
   if (aptitudeQuestions) {
     questionSet.aptitudeQuestions = await AptitudeQuestion.insertMany(aptitudeQuestions);
   }
+  if (!duration || !totalMarks) {
+    return next(new ApiError(400, 'Duration and total marks are required'));
+  }
+
+  questionSet.duration = duration;
+  questionSet.totalMarks = totalMarks;
 
   await questionSet.save();
 
@@ -52,7 +58,7 @@ export const getQuestionSetById = asyncHandler(async (req, res, next) => {
 });
 
 export const updateQuestionSet = asyncHandler(async (req, res, next) => {
-  const { title, codingQuestions, databaseQuestions, aptitudeQuestions } = req.body;
+  const { title, codingQuestions, databaseQuestions, aptitudeQuestions, duration, totalMarks } = req.body;
 
   const questionSet = await QuestionSet.findById(req.params.id);
 
@@ -74,6 +80,8 @@ export const updateQuestionSet = asyncHandler(async (req, res, next) => {
     questionSet.aptitudeQuestions = await AptitudeQuestion.insertMany(aptitudeQuestions);
   }
 
+  if (duration) questionSet.duration = duration;
+  if (totalMarks) questionSet.totalMarks = totalMarks;
   await questionSet.save();
 
   res.status(200).json(new ApiResponse(200, questionSet, 'Question set updated successfully'));
